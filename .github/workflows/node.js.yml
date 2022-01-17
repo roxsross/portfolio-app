@@ -21,27 +21,28 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
     - name: Notify
       run: >-
         curl -s "https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage" \
           --data-urlencode "chat_id=${{ secrets.CHAT_ID }}" \
           -d "disable_web_page_preview=true" \
-          --data-urlencode "text=Go Test for \`$GITHUB_REF\`: SUCCESS"$'\n'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+          --data-urlencode "text=🤖 Deploy with as [$(echo $GITHUB_SHA | cut -c1-8)] \`$GITHUB_REF\`: SUCCESS"$'\n'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
           --data-urlencode "parse_mode=Markdown"
       if: success()
       
     - name: Notify
       run: >-
+        curl -s "https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendSticker \
+          --data-urlencode "chat_id=${{ secrets.CHAT_ID }}" \
+          -d "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
+      if: success()     
+   
+    - name: Notify
+      run: >-
         curl -s "https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage" \
           --data-urlencode "chat_id=${{ secrets.CHAT_ID }}" \
           -d "disable_web_page_preview=true" \
-          --data-urlencode "text=Go Test for \`$GITHUB_REF\`: FAILURE"$'\n'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+          --data-urlencode "text=Deploy for \`$GITHUB_REF\`: FAILURE"$'\n'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
           --data-urlencode "parse_mode=Markdown"
       if: failure()
     
