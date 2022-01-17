@@ -34,9 +34,10 @@ jobs:
       run: >-
         curl -s "https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendSticker \
           --data-urlencode "chat_id=${{ secrets.CHAT_ID }}" \
-          -d "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
+          --data-urlencode "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
       if: success()     
    
+      #   run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendSticker -d chat_id="${{ secrets.CHAT_ID }}" -d "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
     - name: Notify
       run: >-
         curl -s "https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage" \
