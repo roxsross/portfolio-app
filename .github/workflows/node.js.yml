@@ -26,10 +26,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
+    - run: yarn install
     - name: tele notification 2
       run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage -d chat_id="${{ secrets.CHAT_ID }}" -d text="Build ${GITHUB_REF:10} done"
-    - run: npm run build --if-present
+    #- run: npm run build --if-present
     - name: tele notification 3
       run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage -d chat_id="${{ secrets.CHAT_ID }}" -d text="Deploy ${GITHUB_REF:10} started"
     #- run: npm test
