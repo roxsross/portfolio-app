@@ -23,7 +23,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Notify
       run: >-
-        curl -s "https://api.telegram.org/bot{{ secrets.TELE_TOCKEN }}/sendMessage" \
+        curl -s "https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage" \
           --data-urlencode "chat_id=-${{ secrets.CHAT_ID }}" \
           --data-urlencode "text=Go Test for \`$GITHUB_REF\`: SUCCESS"$'\n'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
           --data-urlencode "parse_mode=Markdown"
@@ -31,7 +31,7 @@ jobs:
       
     - name: Notify
       run: >-
-        curl -s "https://api.telegram.org/bot{{ secrets.TELE_TOCKEN }}/sendMessage" \
+        curl -s "https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage" \
           --data-urlencode "chat_id=${{ secrets.CHAT_ID }}" \
           --data-urlencode "text=Go Test for \`$GITHUB_REF\`: FAILURE"$'\n'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
           --data-urlencode "parse_mode=Markdown"
