@@ -22,11 +22,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: tele notification 2
-      run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage -d chat_id="${{ secrets.CHAT_ID }}" -d "disable_web_page_preview=true" -d  text="🤖 building with HEAD as [$(echo $GITHUB_SHA | cut -c1-8)](https://github.com/Dashboard-Crypto-Games/dashboard-api/commit/${GITHUB_SHA}) 🤖"
+      run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage -d chat_id="${{ secrets.CHAT_ID }}" -d "disable_web_page_preview=true" -d  text="🤖 building [$(echo $GITHUB_SHA | cut -c1-8)](https://github.com/Dashboard-Crypto-Games/dashboard-api/commit/${GITHUB_SHA}) 🤖"
     #- run: npm run build --if-present
     - name: tele notification 3
       run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage -d chat_id="${{ secrets.CHAT_ID }}" -d "disable_web_page_preview=true" -d "parse_mode=markdown" -d text="🤖 workflow for [$(echo $GITHUB_SHA | cut -c1-8)](https://github.com/Dashboard-Crypto-Games/dashboard-api/commit/${GITHUB_SHA}) finished 🤖"
     #- run: npm test
     - name: tele notification 4
-      run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}//sendSticker -d chat_id="${{ secrets.CHAT_ID }}" -d "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
+      run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendSticker -d chat_id="${{ secrets.CHAT_ID }}" -d "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
 
