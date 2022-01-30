@@ -10,49 +10,10 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  stackhawk-hawkscan:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v2
-    - name: Notify
-      run: |
-        curl -s "https://api.telegram.org/bot5032059165:AAHI2PbC6A0WVnGDXQpIOB__SebQYx4-LvY/sendMessage" \
-          --data-urlencode "chat_id=-692663946" \
-          -d "disable_web_page_preview=true" \
-          --data-urlencode "text=🤖 Deploy with as [$(echo $GITHUB_SHA | cut -c1-8)] \`$GITHUB_REF\`: SUCCESS"$'\n'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-          --data-urlencode "parse_mode=Markdown"
-      if: success()
-      
-    - name: Notify
-      run: |
-        curl -s "https://api.telegram.org/bot5032059165:AAHI2PbC6A0WVnGDXQpIOB__SebQYx4-LvY/sendSticker" \
-          --data-urlencode "chat_id=-692663946" \
-          --data-urlencode "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
-      if: success()     
-   
-      #   run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendSticker -d chat_id="${{ secrets.CHAT_ID }}" -d "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
-    - name: Notify
-      run: |
-        curl -s "https://api.telegram.org/bot5032059165:AAHI2PbC6A0WVnGDXQpIOB__SebQYx4-LvY/sendMessage" \
-          --data-urlencode "chat_id=-692663946" \
-          -d "disable_web_page_preview=true" \
-          --data-urlencode "text=Deploy for \`$GITHUB_REF\`: FAILURE"$'\n'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-          --data-urlencode "parse_mode=Markdown"
-      if: failure()
-    
-   # - name: tele notification 2
-    #  run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage -d chat_id="${{ secrets.CHAT_ID }}" -d "disable_web_page_preview=true" -d  text="🤖 building [$(echo $GITHUB_SHA | cut -c1-8)](https://github.com/Dashboard-Crypto-Games/dashboard-api/commit/${GITHUB_SHA}) 🤖"
-    #- run: npm run build --if-present
-    #- name: tele notification 3
-    #  run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendMessage -d chat_id="${{ secrets.CHAT_ID }}" -d "disable_web_page_preview=true" -d "parse_mode=markdown" -d text="🤖 workflow for [$(echo $GITHUB_SHA | cut -c1-8)](https://github.com/Dashboard-Crypto-Games/dashboard-api/commit/${GITHUB_SHA}) finished 🤖"
-    #- run: npm test
-   # - name: tele notification 4
-   #   run: curl -s -X POST  https://api.telegram.org/bot${{ secrets.TELE_TOCKEN }}/sendSticker -d chat_id="${{ secrets.CHAT_ID }}" -d "sticker=CAACAgUAAxkBAAJc416cRVy18acXP6HgtZSnxuuoJi01AAK9AAMtO2YjehthhceJ__sYBA"
-
+    - uses: stackhawk/hawkscan-action@v1.3.2
+      with:
+        apiKey: ${{ secrets.HAWK_API_KEY }}
