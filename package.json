@@ -21,7 +21,7 @@
     "babel-plugin-transform-object-rest-spread": "6.23.0",
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
-    "css-loader": "0.28.4",
+    "css-loader": "6.6.0",
     "emotion-theming": "^11.0.0",
     "live-server": "^1.2.0",
     "moment": "2.18.1",
